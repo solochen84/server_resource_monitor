@@ -20,12 +20,11 @@ def get_health(host, port, timeout):
     return True
 
 
-def monitor_health(host, port, health_alarm_policy):
+def monitor_health(host, port, service_name, health_alarm_policy):
     frequency = health_alarm_policy['frequency']
     times = health_alarm_policy['times']
     timeout = health_alarm_policy['timeout']
     severity = health_alarm_policy['severity']
-    service_name = health_check_services['name']
     count = 0
     while True:
         is_healthy = get_health(host, port, timeout)
@@ -41,7 +40,7 @@ def monitor_health(host, port, health_alarm_policy):
 
 def start(scheduler):
     for service in health_check_services:
-        scheduler.add_job(func=monitor_health, args=(service[0], service[1], health_alarm_policy),
+        scheduler.add_job(func=monitor_health, args=(service[0], service[1], service[2], health_alarm_policy),
                           next_run_time=datetime.datetime.now())
     scheduler.start()
 
