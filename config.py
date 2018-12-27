@@ -31,3 +31,11 @@ CPU_alarm_policy = {'frequency': 1, "times": 5, 'threshold': 85, 'severity': Sev
 mem_alarm_policy = {'frequency': 1, "times": 5, 'threshold': 85, 'severity': Severity.WARNING}
 CPU15_alarm_policy = {'frequency': 1, "times": 5, 'threshold': 2, 'severity': Severity.WARNING}
 disk_alarm_policy = {'frequency': 1, "times": 5, 'threshold': 85, 'severity': Severity.WARNING}
+
+
+health_check_services = [('123.58.33.18', 32),
+
+                         ]
+
+# 健康检查告警策略
+health_alarm_policy = {'frequency': 1, "times": 2, 'timeout': 10, 'severity': Severity.WARNING}
