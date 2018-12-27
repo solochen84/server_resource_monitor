@@ -25,6 +25,7 @@ def monitor_health(host, port, health_alarm_policy):
     times = health_alarm_policy['times']
     timeout = health_alarm_policy['timeout']
     severity = health_alarm_policy['severity']
+    service_name = health_check_services['name']
     count = 0
     while True:
         is_healthy = get_health(host, port, timeout)
@@ -34,7 +35,7 @@ def monitor_health(host, port, health_alarm_policy):
             count = 0
         if count >= times:
             sm.monitor_notify_dingding(
-                "[%s] 服务%s:%d连续%d次无响应。" % (severity.name, host, port, count))
+                "[%s] 服务（%s）%s:%d连续%d次无响应。" % (severity.name, service_name, host, port, count))
         time.sleep(frequency * 60)
 
 

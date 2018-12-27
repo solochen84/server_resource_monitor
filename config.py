@@ -33,7 +33,7 @@ CPU15_alarm_policy = {'frequency': 1, "times": 5, 'threshold': 2, 'severity': Se
 disk_alarm_policy = {'frequency': 1, "times": 5, 'threshold': 85, 'severity': Severity.WARNING}
 
 
-health_check_services = [('123.58.33.18', 32),
+health_check_services = [('123.58.33.18', 22, 'ssh服务'),
 
                          ]
 
