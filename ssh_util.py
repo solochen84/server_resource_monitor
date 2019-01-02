@@ -96,5 +96,22 @@ def get_disk_used_percentage(ssh_client):
     return disk_list
 
 
+# 获取CPU核数
+def get_cpu_cores(ssh_client):
+    command = 'cat /proc/cpuinfo| grep processor | wc -l'
+    ssh_res = ssh_exec_cmd(ssh_client, command)
+    cores_num = int(ssh_res[0])
+    print(cores_num)
+    return cores_num
+
+
+if __name__ == '__main__':
+    common_pkey = paramiko.RSAKey.from_private_key_file('/Users/chenxiaolu/cloud2go/key/test')
+    host = ('123.58.33.18', 22, 'root', None, common_pkey)
+    ssh_client = ssh_connect(*host)
+    get_cpu_cores(ssh_client)
+
+
+
 
 

@@ -13,7 +13,7 @@ def get_health(host, port, timeout):
     Telnet远程测试连接：客户端连接Linux服务器
     """
     try:
-        tn = telnetlib.Telnet(host, port=81, timeout=timeout)
+        tn = telnetlib.Telnet(host, port=port, timeout=timeout)
         tn.close()
     except:
         return False
@@ -27,7 +27,8 @@ def monitor_health(host, port, service_name, health_alarm_policy):
     severity = health_alarm_policy['severity']
     count = 0
     while True:
-        is_healthy = get_health(host, port, timeout)
+        # is_healthy = get_health(host, port, timeout)
+        is_healthy = get_health('59.110.170.216', 8003, 10)
         if not is_healthy:
             count += 1
         else:

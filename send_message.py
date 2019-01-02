@@ -35,7 +35,19 @@ def dingding(webhooks, msg):
         xiaoding.send_text(msg=msg, is_at_all=True)
 
 
-def monitor_notify_dingding(msg):
-    dingding(notify_dingding_webhooks, msg)
+# 使用钉钉机器人发送markdown消息
+def send_mk_dingding(webhooks, msg_list):
+    str = ''
+    for msg in msg_list:
+        str = str + '- ' + msg + '\n'
+        print(msg)
+    print(str)
+    for webhook in webhooks:
+        xiaoding = DingtalkChatbot(webhook)
+        xiaoding.send_markdown(title='cloudtogo生产环境告警', text=str, is_at_all=True)
+
+
+def monitor_notify_dingding(msg_lsit):
+    send_mk_dingding(notify_dingding_webhooks, msg_lsit)
 
 
