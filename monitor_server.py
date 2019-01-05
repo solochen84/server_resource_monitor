@@ -50,7 +50,7 @@ def monitor_cpu_load15(ssh_client, host_ip, host_port, alarm_policy, msg_list):
     frequency = alarm_policy['frequency']
     times = alarm_policy['times']
     # threshold = alarm_policy['threshold']
-    threshold = get_cpu_cores(ssh_client)
+    threshold = get_cpu_cores(ssh_client)*1.5
     severity = alarm_policy['severity']
     count = 0
     while True:
@@ -60,7 +60,7 @@ def monitor_cpu_load15(ssh_client, host_ip, host_port, alarm_policy, msg_list):
         else:
             count = 0
         if count >= times:
-            alarm_msg = "[%s] IP为%s、端口为%s的机器cpu load15连续%d次超过%d，当前值为%d" % (severity.name, host_ip, str(host_port), count, threshold, target_value)
+            alarm_msg = "[%s] IP为%s、端口为%s的机器cpu load15连续%d次超过%.2f，当前值为%.2f" % (severity.name, host_ip, str(host_port), count, threshold, target_value)
             msg_list.append(alarm_msg)
             # sm.monitor_notify_dingding("[%s] IP为%s、端口为%s的机器cpu load15连续%d次超过%d%%，当前值为%d%%" % (severity.name, host_ip, str(host_port), count, threshold, target_value))
         time.sleep(frequency*60)
