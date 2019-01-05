@@ -101,7 +101,6 @@ def get_cpu_cores(ssh_client):
     command = 'cat /proc/cpuinfo| grep processor | wc -l'
     ssh_res = ssh_exec_cmd(ssh_client, command)
     cores_num = int(ssh_res[0])
-    print(cores_num)
     return cores_num
 
 

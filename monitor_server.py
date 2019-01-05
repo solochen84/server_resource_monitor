@@ -43,7 +43,7 @@ def monitor_cpu_load15(ssh_client, host_ip, host_port, alarm_policy, msg_list):
     :param host_ip:
     :param frequency:检查评率，数值类型，单位是分钟
     :param times:次数
-    :param threshold:阈值，传整数
+    :param threshold:阈值，传整数，此函数中阈值从主机中动态获取
     :param severity:严重级别
     :return:
     """

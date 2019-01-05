@@ -40,7 +40,7 @@ def send_mk_dingding(webhooks, msg_list):
     str = ''
     for msg in msg_list:
         str = str + '- ' + msg + '\n'
-        print(msg)
+        # print(msg)
     print(str)
     for webhook in webhooks:
         xiaoding = DingtalkChatbot(webhook)
