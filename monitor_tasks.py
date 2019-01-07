@@ -7,6 +7,7 @@ import datetime
 from monitor_server import monitor_cpu_load15, monitor_cpu_use, monitor_disk, monitor_mem
 from send_message import monitor_notify_dingding
 from apscheduler.executors.pool import ThreadPoolExecutor, ProcessPoolExecutor
+import logging
 
 
 def start(scheduler, ssh_client_list, msg_list):
@@ -42,11 +43,16 @@ def send_mk_dingding_msg(alist):
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.ERROR,
+                        format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                        datefmt='%Y-%m-%d %H:%M:%S', filename='log.txt', filemode='a')
+
     executors = {
         'default': ThreadPoolExecutor(500),
         'processpool': ProcessPoolExecutor(5)
     }
     scheduler = BlockingScheduler(executors=executors)
+    scheduler._logger = logging
     ssh_client_list = []
     msg_list = []
 
