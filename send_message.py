@@ -6,6 +6,7 @@ from email.mime.text import MIMEText
 from email.utils import formataddr
 from dingtalkchatbot.chatbot import DingtalkChatbot
 from config import notify_dingding_webhooks
+import datetime
 
 
 # 发送邮件函数
@@ -37,17 +38,26 @@ def dingding(webhooks, msg):
 
 # 使用钉钉机器人发送markdown消息
 def send_mk_dingding(webhooks, msg_list):
-    str = ''
+    tmp_str = ''
     for msg in msg_list:
-        str = str + '- ' + msg + '\n'
-        # print(msg)
-    print(str)
+        tmp_str = tmp_str + '- ' + msg + '\n'
+
+    message = str(datetime.datetime.now()) + ':\n' + tmp_str
+    print(message)
     for webhook in webhooks:
-        xiaoding = DingtalkChatbot(webhook)
-        xiaoding.send_markdown(title='cloudtogo生产环境告警', text=str, is_at_all=True)
+        try:
+            xiaoding = DingtalkChatbot(webhook)
+            xiaoding.send_markdown(title='cloudtogo生产环境告警', text=message, is_at_all=True)
+        except Exception as e:
+            print(e)
 
 
 def monitor_notify_dingding(msg_lsit):
     send_mk_dingding(notify_dingding_webhooks, msg_lsit)
+
+
+if __name__ == '__main__':
+    alist = ['hello', 'world']
+    send_mk_dingding(notify_dingding_webhooks, alist)
 
 

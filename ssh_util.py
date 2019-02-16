@@ -2,6 +2,7 @@
 
 import paramiko
 import re
+from paramiko.ssh_exception import NoValidConnectionsError
 
 
 def ssh_connect(hostname, port, username='root', password='123456', pkey=None):
@@ -15,18 +16,12 @@ def ssh_connect(hostname, port, username='root', password='123456', pkey=None):
     :return:
     """
     # paramiko.util.log_to_file('paramiko_log')
-    try:
-        sshClient = paramiko.SSHClient()
-        sshClient.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        if pkey:
-            sshClient.connect(hostname, port, username, pkey=pkey)
-        else:
-            sshClient.connect(hostname, port, username, password)
-    except Exception as e:
-        print(e.with_traceback())
-        print(e)
-        print('SSH连接失败')
-        exit()
+    sshClient = paramiko.SSHClient()
+    sshClient.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    if pkey:
+        sshClient.connect(hostname, port, username, pkey=pkey)
+    else:
+        sshClient.connect(hostname, port, username, password)
     return sshClient
 
 
